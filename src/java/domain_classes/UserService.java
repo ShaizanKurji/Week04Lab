@@ -19,7 +19,17 @@ public class UserService {
         User user = null; 
         user = new User(username, password); 
         
-        return user; 
+        if(user.getUser().equals("adam") && user.getPassword().equals("password")){
+            return user; 
+        }
+        else if(user.getUser().equals("betty") && user.getPassword().equals("password")){
+            return user; 
+        }
+        
+        else{
+            return null; 
+        }
+        
     }
     
 }
