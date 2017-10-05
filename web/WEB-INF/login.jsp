@@ -16,14 +16,15 @@
         <form action="login" method ="post">
         Username: <input type="text" name ="username" value =${username}>
         <br>
-        Password: <input type ="text" name ="password">
+        Password: <input type ="password" name ="password">
         <br>
         <input type ="submit" value ="Login">
         <br>
-        <input type ="checkbox" name ="remember">Remember Me
+        <input type ="checkbox" name ="remember" ${remember}>Remember Me
         </form>
         <br>
         ${noInput}
         ${invalidLogin}
+        ${logoutmessage}
     </body>
 </html>

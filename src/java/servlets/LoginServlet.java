@@ -26,6 +26,37 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+        Cookie[] cookie = request.getCookies();
+        String cookieName = "usernameCookie";
+        String cookieContent = "";
+        if (cookie != null) {
+            for (Cookie cookies : cookie) {
+                if (cookieName.equals(cookies.getName())) {
+                    cookieContent = cookies.getValue();
+                }
+            }
+        }
+
+        if (!cookieContent.equals("")) {
+            request.setAttribute("username", cookieContent);
+            request.setAttribute("remember", "checked");
+        }
+
+        String action = request.getParameter("action");
+        if (action != null && action.equals("logout")) {
+
+            session.removeAttribute("username");
+            request.setAttribute("logout", "You have successfully logged out.");
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        }
+
+        String currentSession = (String) session.getAttribute("username");
+        if (currentSession != null) {
+            response.sendRedirect("home");
+            return;
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
@@ -58,6 +89,7 @@ public class LoginServlet extends HttpServlet {
             cookie.setMaxAge(20 * 60);
             cookie.setPath("/");
             response.addCookie(cookie);
+            request.setAttribute("remember", "checked");
         } //If remember me is not checked
         //See if there is a matching cookie and remove it 
         else {

@@ -14,7 +14,7 @@
     <body>
        
         <h1>Home Page</h1>
-        <p>Hello ${session.username}.</p>
-        
+        <p>Hello ${username}.</p>
+        <a href ="login?action=logout">Log Out </a>
     </body>
 </html>
